@@ -4,7 +4,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "JetSetGo Food Restaurant Website",
+  title: "JetSetGo Food Restaurant Web Application",
   description: "Next.js Food Restaurant Website With MongoDB (MENN)",
 };
 
