@@ -4,15 +4,15 @@ const RestaurantLogin = () => {
       <div className="w-25">
         <h3>Login Components</h3>
         <form>
-          <div class="mb-3">
-            <label class="form-label">Email address</label>
-            <input type="email" class="form-control" />
+          <div className="mb-3">
+            <label className="form-label">Email address</label>
+            <input type="email" className="form-control" />
           </div>
-          <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input type="password" class="form-control" />
+          <div className="mb-3">
+            <label className="form-label">Password</label>
+            <input type="password" className="form-control" />
           </div>
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" className="btn btn-primary">
             Login
           </button>
         </form>
