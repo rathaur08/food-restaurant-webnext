@@ -1,7 +1,10 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const RestaurantSignup = () => {
+  const Routs = useRouter();
+
   // signup Form Data
   const [signupData, setSignupData] = useState({
     email: "",
@@ -21,20 +24,25 @@ const RestaurantSignup = () => {
 
   const handleSubmit = async () => {
     try {
-      const result = await fetch("/api/restaurant", {
+      const resresult = await fetch("/api/restaurant", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(signupData),
       });
-      const resultData = await result.json();
-      // console.log(resultData);
-      if (resultData.success) {
-        alert("Restaurant Register successfully");
+      const response = await resresult.json();
+      // console.log("Response received:", res); // Debugging
+      if (response.success) {
+        const { result } = response;
+        delete result.password; // Optional: If you don't want to store the password locally
+        localStorage.setItem("restaurantUser", JSON.stringify(result));
+        Routs.push("/restaurant/dashboard"); // Navigate to dashboard
+      } else {
+        console.error("Signup failed: ", response.message); // Handle failure
       }
     } catch (error) {
-      console.error("Error submitting signup data:", error);
+      console.error("Error submitting signup data:", error); // Handle error
     }
   };
 
