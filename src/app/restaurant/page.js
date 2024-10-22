@@ -18,9 +18,7 @@ const Restaurant = () => {
         </div>
         <div className="text-center">
           <button className="btn btn-link" onClick={() => setLogin(!login)}>
-            {login
-              ? "Do not have account ? Signup"
-              : "Already have Account ? Login"}
+            {login ? "Do not have an account? Signup" : "Already have an account? Login"}
           </button>
         </div>
         <RestaurantFooter />

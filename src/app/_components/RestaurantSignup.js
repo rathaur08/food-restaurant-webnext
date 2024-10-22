@@ -15,6 +15,9 @@ const RestaurantSignup = () => {
     full_address: "",
     number: "",
   });
+  const [error, serError] = useState(false);
+  const [passwordError, serPasswordError] = useState(false);
+
   // console.log("SignupDataObject", signupData);
 
   // ---------- 1
@@ -23,6 +26,26 @@ const RestaurantSignup = () => {
   };
 
   const handleSubmit = async () => {
+    if (signupData.password !== signupData.c_password) {
+      serPasswordError(true);
+      return false;
+    } else {
+      serPasswordError(false);
+    }
+    if (
+      !signupData.email ||
+      !signupData.password ||
+      !signupData.c_password ||
+      !signupData.res_name ||
+      !signupData.city ||
+      !signupData.full_address ||
+      !signupData.number
+    ) {
+      serError(true);
+      return false;
+    } else {
+      serError(false);
+    }
     try {
       const resresult = await fetch("/api/restaurant", {
         method: "POST",
@@ -59,6 +82,9 @@ const RestaurantSignup = () => {
               value={signupData.email}
               onChange={handleChange("email")}
             />
+            {error && !signupData.email && (
+              <span className="text-error">Email not blank</span>
+            )}
           </div>
           <div className="mb-1">
             <label className="form-label">Password</label>
@@ -68,6 +94,14 @@ const RestaurantSignup = () => {
               value={signupData.password}
               onChange={handleChange("password")}
             />
+            {passwordError && (
+              <span className="text-error">
+                password and confirm password not match
+              </span>
+            )}
+            {error && !signupData.password && (
+              <span className="text-error">password not blank</span>
+            )}
           </div>
           <div className="mb-1">
             <label className="form-label">Confirm Password</label>
@@ -77,6 +111,14 @@ const RestaurantSignup = () => {
               value={signupData.c_password}
               onChange={handleChange("c_password")}
             />
+            {passwordError && (
+              <span className="text-error">
+                password and confirm password not match
+              </span>
+            )}
+            {error && !signupData.c_password && (
+              <span className="text-error">Confirm Password not blank</span>
+            )}
           </div>
           <div className="mb-1">
             <label className="form-label">Enter Restaurant Name</label>
@@ -86,6 +128,9 @@ const RestaurantSignup = () => {
               value={signupData.res_name}
               onChange={handleChange("res_name")}
             />
+            {error && !signupData.res_name && (
+              <span className="text-error">Restaurant Name not blank</span>
+            )}
           </div>
           <div className="mb-1">
             <label className="form-label">City</label>
@@ -95,6 +140,9 @@ const RestaurantSignup = () => {
               value={signupData.city}
               onChange={handleChange("city")}
             />
+            {error && !signupData.city && (
+              <span className="text-error">City not blank</span>
+            )}
           </div>
           <div className="mb-1">
             <label className="form-label">Full Address</label>
@@ -104,6 +152,9 @@ const RestaurantSignup = () => {
               value={signupData.full_address}
               onChange={handleChange("full_address")}
             />
+            {error && !signupData.full_address && (
+              <span className="text-error">Full Address not blank</span>
+            )}
           </div>
           <div className="mb-1">
             <label className="form-label">Contact Number</label>
@@ -113,6 +164,9 @@ const RestaurantSignup = () => {
               value={signupData.number}
               onChange={handleChange("number")}
             />
+            {error && !signupData.number && (
+              <span className="text-error">number not valid blank</span>
+            )}
           </div>
           <button
             type="submit"

@@ -6,3 +6,8 @@
   padding: 10px;
   background-color: #dedcd9;
 }
+
+.text-error {
+  color: red;
+  font-size: 10px;
+}
