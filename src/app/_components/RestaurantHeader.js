@@ -18,7 +18,7 @@ const RestaurantHeader = () => {
     } else {
       setDetails(JSON.parse(data));
     }
-  },[]);
+  }, []);
 
   const logOut = () => {
     localStorage.removeItem("restaurantUser");
@@ -60,16 +60,16 @@ const RestaurantHeader = () => {
                 </li>
 
                 {details && details.res_name ? (
-                  <li className="nav-item">
+                  <li className="nav-item d-flex">
                     <Link
-                      className="nav-link btn btn-primary"
+                      className="nav-link"
                       href="/restaurant"
                       onClick={logOut}
                     >
                       Logout
                     </Link>
-                    <Link className="nav-link" href="/restaurant">
-                      Profile {details.res_name}
+                    <Link className="nav-link" href="">
+                      🙍🤵{details.res_name}
                     </Link>
                   </li>
                 ) : (

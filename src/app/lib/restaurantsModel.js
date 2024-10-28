@@ -7,6 +7,7 @@ const restaurantModel = new mongoose.Schema({
   city: String,
   full_address: String,
   number: Number,
+  res_gen_date: { type: Date, default: Date.now },
 });
 
 export const restaurantSchema =

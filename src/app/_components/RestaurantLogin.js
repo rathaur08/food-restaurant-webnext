@@ -50,6 +50,7 @@ const RestaurantLogin = () => {
       console.error("Error submitting Login data:", error); // Handle error
     }
   };
+  
   return (
     <>
       <div className="w-25">
