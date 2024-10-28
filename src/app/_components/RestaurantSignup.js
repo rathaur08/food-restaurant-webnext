@@ -20,7 +20,7 @@ const RestaurantSignup = () => {
 
   // console.log("SignupDataObject", signupData);
 
-  // ---------- 1
+  // ---------- Signup Data Handle Input
   const handleChange = (input) => (e) => {
     setSignupData({ ...signupData, [input]: e.target.value });
   };
@@ -47,7 +47,7 @@ const RestaurantSignup = () => {
       serError(false);
     }
     try {
-      const resresult = await fetch("/api/restaurant", {
+      const resresult = await fetch("http://localhost:3001/api/restaurant", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,6 +57,7 @@ const RestaurantSignup = () => {
       const response = await resresult.json();
       // console.log("Response received:", res); // Debugging
       if (response.success) {
+        alert('Signup Succesfully')
         const { result } = response;
         delete result.password; // Optional: If you don't want to store the password locally
         localStorage.setItem("restaurantUser", JSON.stringify(result));
