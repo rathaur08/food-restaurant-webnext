@@ -15,10 +15,35 @@ const AddFoodItem = () => {
     setAddItem({ ...addItem, [input]: e.target.value });
   };
 
-  const handleAddFoodItem = () => {
-    console.log("AddFoodItem :", addItem)
-    debugger
+  const handleAddFoodItem = async () => {
+    let resto_id;
+    const restaurantData = JSON.parse(localStorage.getItem("restaurantUser"))
+    if (restaurantData) {
+      resto_id = restaurantData._id
+    }
+    let resAddFoodItem = { resto_id, ...addItem }
+    // console.log("AddFoodItem Data :", resAddFoodItem)
+
+    try {
+      const resresult = await fetch("http://localhost:3001/api/restaurant/foods", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(resAddFoodItem),
+      });
+      const response = await resresult.json();
+      // console.log("Response received:", res); // Debugging
+      if (response.success) {
+        alert('Add restaurant food Item Succesfully');
+      } else {
+        console.error("AddFood failed: ", response.message); // Handle failure
+      }
+    } catch (error) {
+      console.error("Error submitting AddFood data:", error); // Handle error
+    }
   };
+
 
   return (
     <>

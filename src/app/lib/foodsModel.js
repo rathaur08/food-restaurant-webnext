@@ -1,6 +1,6 @@
 const { default: mongoose } = require("mongoose");
 
-const foodModel = new mongoose({
+const foodModel = new mongoose.Schema({
   item_name: String,
   item_price: Number,
   item_path: String,
@@ -9,4 +9,4 @@ const foodModel = new mongoose({
   item_gen_date: { type: Date, default: Date.now }  // Automatically sets the current date
 });
 
-export const foodSchema = mongoose.model.foods || mongoose.model("foods", foodModel)
+export const foodSchema = mongoose.models.foods || mongoose.model("foods", foodModel)
