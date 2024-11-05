@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const AddFoodItem = () => {
+const AddFoodItem = (props) => {
 
   // signup Form Data
   const [addItem, setAddItem] = useState({
@@ -44,6 +44,7 @@ const AddFoodItem = () => {
       // console.log("Response received:", res); // Debugging
       if (response.success) {
         alert('Add restaurant food Item Succesfully');
+        props.AddItemsupdate(false);
       } else {
         console.error("AddFood failed: ", response.message); // Handle failure
       }

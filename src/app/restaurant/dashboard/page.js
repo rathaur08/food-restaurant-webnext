@@ -5,7 +5,7 @@ import AddFoodItem from "@/app/_components/AddFoodItem";
 import FoodItemList from "@/app/_components/FoodItemList";
 
 const Dashboard = () => {
-  const [addItem, setAddItem] = useState(true)
+  const [addItem, setAddItem] = useState(true);
   return (
     //url =  dashboard
     <>
@@ -14,9 +14,7 @@ const Dashboard = () => {
         <button className="btn btn-primary" onClick={() => setAddItem(true)}>Add Food</button>
         <button className="btn btn-primary" onClick={() => setAddItem(false)}>Dashboard</button>
       </div>
-      {
-        addItem ? <AddFoodItem /> : <FoodItemList />
-      }
+      {addItem ? <AddFoodItem AddItemsupdate={setAddItem} /> : <FoodItemList />}
     </>
   );
 };
