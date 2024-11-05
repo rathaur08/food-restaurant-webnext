@@ -6,7 +6,7 @@ const AddFoodItem = () => {
   const [addItem, setAddItem] = useState({
     item_name: "",
     item_price: "",
-    item_path: "",
+    item_image: "",
     item_description: "",
   });
   const [error, setError] = useState(false);
@@ -17,7 +17,7 @@ const AddFoodItem = () => {
   };
 
   const handleAddFoodItem = async () => {
-    if (!addItem.item_name || !addItem.item_price || !addItem.item_path || !addItem.item_description) {
+    if (!addItem.item_name || !addItem.item_price || !addItem.item_image || !addItem.item_description) {
       setError(true);
       return false
     } else {
@@ -78,10 +78,10 @@ const AddFoodItem = () => {
           </div>
           <div className="mb-3">
             <input type="text" className="form-control" placeholder="Enter Item Image URL/Path"
-              value={addItem.item_path}
-              onChange={handleChange("item_path")}
+              value={addItem.item_image}
+              onChange={handleChange("item_image")}
             />
-            {error && !addItem.item_path && (
+            {error && !addItem.item_image && (
               <span className="text-error">pls enter valid Name</span>
             )}
           </div>

@@ -1,8 +1,13 @@
+import RestaurantHeader from "./_components/RestaurantHeader";
+
 const page = () => {
   return (
     <>
-      {/* <p>Food Restaurant Website</p> */}
-      <p>JetSetGo Restaurant Website</p>
+      <div>
+        <RestaurantHeader />
+        {/* <p>Food Restaurant Website</p> */}
+        <p>JetSetGo Restaurant Website</p>
+      </div>
     </>
   );
 };

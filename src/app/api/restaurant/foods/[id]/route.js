@@ -11,5 +11,5 @@ export async function GET(request, content) {
   if (result) {
     success = true;
   }
-  return NextResponse.json({ result, success })
+  return NextResponse.json({ result, success });
 }

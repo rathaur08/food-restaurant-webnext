@@ -19,7 +19,10 @@ export async function POST(request) {
 
   if (payload.login) {
     // use it for login
-    result = await restaurantSchema.findOne({ email: payload.email, password: payload.password })
+    result = await restaurantSchema.findOne({
+      email: payload.email,
+      password: payload.password,
+    });
     if (result) {
       success = true;
     }

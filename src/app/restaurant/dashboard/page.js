@@ -2,19 +2,20 @@
 import { useState } from "react";
 import RestaurantHeader from "@/app/_components/RestaurantHeader";
 import AddFoodItem from "@/app/_components/AddFoodItem";
+import FoodItemList from "@/app/_components/FoodItemList";
 
 const Dashboard = () => {
-  const [addItem, setAddItem] = useState(false)
+  const [addItem, setAddItem] = useState(true)
   return (
     //url =  dashboard
     <>
       <RestaurantHeader />
-      <div className="d-flex  gap-2">
+      <div className="d-flex gap-2 mb-4">
         <button className="btn btn-primary" onClick={() => setAddItem(true)}>Add Food</button>
         <button className="btn btn-primary" onClick={() => setAddItem(false)}>Dashboard</button>
       </div>
       {
-        addItem ? <AddFoodItem /> : <h1 className="mb-3"> Welcome to Dashboard JetSetGO</h1>
+        addItem ? <AddFoodItem /> : <FoodItemList />
       }
     </>
   );

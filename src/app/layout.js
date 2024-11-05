@@ -1,8 +1,5 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "JetSetGo Food Restaurant Web Application",
@@ -13,10 +10,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link
-          rel="icon"
-          href="https://d3tfanr7troppj.cloudfront.net/static_files/images/000/003/094/original/favicon_ipal.png?1571377496"
-        />
+        {/* <link rel="icon" href="https://d3tfanr7troppj.cloudfront.net/static_files/images/000/004/328/original/name_signature_sunny.png?1674207908"/> */}
+        <link rel="icon" href="https://d3tfanr7troppj.cloudfront.net/static_files/images/000/003/094/original/favicon_ipal.png?1571377496" />
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
           rel="stylesheet"
@@ -25,7 +20,7 @@ export default function RootLayout({ children }) {
         />
       </head>
 
-      <body className={inter.className}>
+      <body className="container">
         <div>{children}</div>
 
         {/* bootstrap@5.0.2 link */}
