@@ -50,34 +50,32 @@ const RestaurantLogin = () => {
       console.error("Error submitting Login data:", error); // Handle error
     }
   };
-  
+
   return (
     <>
       <div className="w-25">
         <h3>Login Components</h3>
-        <form>
-          <div className="mb-3">
-            <label className="form-label">Email address</label>
-            <input type="email" className="form-control"
-              value={loginData.email}
-              onChange={handleChange("email")} />
-            {error && !loginData.email && (
-              <span className="text-error">pls enter valid Email</span>
-            )}
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Password</label>
-            <input type="password" className="form-control"
-              value={loginData.password}
-              onChange={handleChange("password")} />
-            {error && !loginData.password && (
-              <span className="text-error">pls enter valid password</span>
-            )}
-          </div>
-          <button type="submit" onClick={handleLogin} className="btn btn-primary">
-            Login
-          </button>
-        </form>
+        <div className="mb-3">
+          <label className="form-label">Email address</label>
+          <input type="email" className="form-control"
+            value={loginData.email}
+            onChange={handleChange("email")} />
+          {error && !loginData.email && (
+            <span className="text-error">pls enter valid Email</span>
+          )}
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Password</label>
+          <input type="password" className="form-control"
+            value={loginData.password}
+            onChange={handleChange("password")} />
+          {error && !loginData.password && (
+            <span className="text-error">pls enter valid password</span>
+          )}
+        </div>
+        <button type="submit" onClick={handleLogin} className="btn btn-primary">
+          Login
+        </button>
       </div>
     </>
   );

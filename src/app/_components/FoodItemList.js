@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+// import EditFoodItem from "../restaurant/dashboard/[id]/page";
 
 const FoodItemList = () => {
-
+  const router = useRouter();
   const [foodItems, setFoodItems] = useState();
   console.log(foodItems);
 
@@ -36,12 +38,16 @@ const FoodItemList = () => {
     }
   }
 
+  const editFoodItem = async (id) => {
+    router.push(`dashboard/${id}`)
+  }
+
   return (
     <>
       <div>
         <h1>Food Item List</h1>
         <div class="table-responsive">
-          <table class="table">
+          <table class="table table-bordered">
             <thead class="table-dark">
               <tr>
                 <th scope="col">S.N</th>
@@ -63,12 +69,12 @@ const FoodItemList = () => {
                     <td><img height={38} src={item.item_image} alt={item.item_name} /></td>
                     <td className="d-flex gap-1">
                       <button type="button" className="btn btn-outline-dark" onClick={() => deleteFoodItem(item._id)}>Delete</button>
-                      <button type="button" className="btn btn-outline-dark">Edit</button>
+                      {/* <button type="button" className="btn btn-outline-dark" onClick={() => editFoodItem(item._id)}>Edit</button> */}
+                      <button type="button" className="btn btn-outline-dark" onClick={() => router.push(`dashboard/${item._id}`)}>Edit</button>
                     </td>
                   </tr>
                 ))
               }
-
             </tbody>
           </table>
         </div>

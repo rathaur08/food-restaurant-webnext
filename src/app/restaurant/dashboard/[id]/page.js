@@ -1,6 +1,11 @@
-import { useState } from "react";
+"use client"
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
-const AddFoodItem = (props) => {
+const EditFoodItem = (props) => {
+  const router = useRouter();
+
+  // console.log(props.params.id)
 
   // signup Form Data
   const [addItem, setAddItem] = useState({
@@ -16,7 +21,22 @@ const AddFoodItem = (props) => {
     setAddItem({ ...addItem, [input]: e.target.value });
   };
 
-  const handleAddFoodItem = async () => {
+  useEffect(() => {
+    handleFoodItems();
+  }, []);
+
+  const handleFoodItems = async () => {
+    let response = await fetch(`http://localhost:3001/api/restaurant/foods/edit/${props.params.id}`)
+    response = await response.json();
+    if (response.success) {
+      console.log(response);
+      setAddItem(response.result)
+    } else {
+      alert("food item not loading")
+    }
+  }
+
+  const handleEditFoodItem = async () => {
     if (!addItem.item_name || !addItem.item_price || !addItem.item_image || !addItem.item_description) {
       setError(true);
       return false
@@ -24,32 +44,26 @@ const AddFoodItem = (props) => {
       setError(false);
     }
 
-    let resto_id;
-    const restaurantData = JSON.parse(localStorage.getItem("restaurantUser"))
-    if (restaurantData) {
-      resto_id = restaurantData._id
-    }
-    let resAddFoodItem = { resto_id, ...addItem }
-    // console.log("AddFoodItem Data :", resAddFoodItem)
-
+    let resAddFoodItem = addItem;
+    console.log("Updated Food Item Data :", resAddFoodItem)
     try {
-      const resresult = await fetch("http://localhost:3001/api/restaurant/foods", {
-        method: "POST",
+      const resresult = await fetch(`http://localhost:3001/api/restaurant/foods/edit/${props.params.id}`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(resAddFoodItem),
+        body: JSON.stringify(addItem),
       });
       const response = await resresult.json();
       // console.log("Response received:", res); // Debugging
       if (response.success) {
-        alert('Add restaurant food Item Succesfully');
-        props.AddItemsupdate(false);
+        // alert('Update restaurant food Item Succesfully');
+        router.push(`../dashboard/`)
       } else {
-        console.error("AddFood failed: ", response.message); // Handle failure
+        console.error("Update Food failed: ", response.message); // Handle failure
       }
     } catch (error) {
-      console.error("Error submitting AddFood data:", error); // Handle error
+      console.error("Error submitting UpdateFood data:", error); // Handle error
     }
   };
 
@@ -57,7 +71,7 @@ const AddFoodItem = (props) => {
   return (
     <>
       <div className="w-50">
-        <h2> Add New Food Item</h2>
+        <h2> Update Food Item</h2>
         <div className="mb-3">
           <input type="text" className="form-control" placeholder="Item name"
             value={addItem.item_name}
@@ -94,12 +108,14 @@ const AddFoodItem = (props) => {
             <span className="text-error">pls enter valid Name</span>
           )}
         </div>
-        <button type="submit" onClick={handleAddFoodItem} className="btn btn-primary">
+        <button type="submit" onClick={handleEditFoodItem} className="btn btn-primary">
           Submit
         </button>
+        <br />
+        <button type="button" className="btn btn-link mt-3" onClick={() => router.push(`../dashboard/`)}>Back to Dashboard</button>
       </div>
     </>
   )
 }
 
-export default AddFoodItem
+export default EditFoodItem

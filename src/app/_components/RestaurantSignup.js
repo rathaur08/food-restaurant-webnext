@@ -74,109 +74,107 @@ const RestaurantSignup = () => {
     <>
       <div className="w-25">
         <h4>Signup Components</h4>
-        <form>
-          <div className="mb-1">
-            <label className="form-label">Email address</label>
-            <input
-              type="email"
-              className="form-control"
-              value={signupData.email}
-              onChange={handleChange("email")}
-            />
-            {error && !signupData.email && (
-              <span className="text-error">Email not blank</span>
-            )}
-          </div>
-          <div className="mb-1">
-            <label className="form-label">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              value={signupData.password}
-              onChange={handleChange("password")}
-            />
-            {passwordError && (
-              <span className="text-error">
-                password and confirm password not match
-              </span>
-            )}
-            {error && !signupData.password && (
-              <span className="text-error">password not blank</span>
-            )}
-          </div>
-          <div className="mb-1">
-            <label className="form-label">Confirm Password</label>
-            <input
-              type="password"
-              className="form-control"
-              value={signupData.c_password}
-              onChange={handleChange("c_password")}
-            />
-            {passwordError && (
-              <span className="text-error">
-                password and confirm password not match
-              </span>
-            )}
-            {error && !signupData.c_password && (
-              <span className="text-error">Confirm Password not blank</span>
-            )}
-          </div>
-          <div className="mb-1">
-            <label className="form-label">Enter Restaurant Name</label>
-            <input
-              type="text"
-              className="form-control"
-              value={signupData.res_name}
-              onChange={handleChange("res_name")}
-            />
-            {error && !signupData.res_name && (
-              <span className="text-error">Restaurant Name not blank</span>
-            )}
-          </div>
-          <div className="mb-1">
-            <label className="form-label">City</label>
-            <input
-              type="text"
-              className="form-control"
-              value={signupData.city}
-              onChange={handleChange("city")}
-            />
-            {error && !signupData.city && (
-              <span className="text-error">City not blank</span>
-            )}
-          </div>
-          <div className="mb-1">
-            <label className="form-label">Full Address</label>
-            <input
-              type="text"
-              className="form-control"
-              value={signupData.full_address}
-              onChange={handleChange("full_address")}
-            />
-            {error && !signupData.full_address && (
-              <span className="text-error">Full Address not blank</span>
-            )}
-          </div>
-          <div className="mb-1">
-            <label className="form-label">Contact Number</label>
-            <input
-              type="text"
-              className="form-control"
-              value={signupData.number}
-              onChange={handleChange("number")}
-            />
-            {error && !signupData.number && (
-              <span className="text-error">number not valid blank</span>
-            )}
-          </div>
-          <button
-            type="submit"
-            onClick={handleSubmit}
-            className="btn btn-primary"
-          >
-            Sign up
-          </button>
-        </form>
+        <div className="mb-1">
+          <label className="form-label">Email address</label>
+          <input
+            type="email"
+            className="form-control"
+            value={signupData.email}
+            onChange={handleChange("email")}
+          />
+          {error && !signupData.email && (
+            <span className="text-error">Email not blank</span>
+          )}
+        </div>
+        <div className="mb-1">
+          <label className="form-label">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            value={signupData.password}
+            onChange={handleChange("password")}
+          />
+          {passwordError && (
+            <span className="text-error">
+              password and confirm password not match
+            </span>
+          )}
+          {error && !signupData.password && (
+            <span className="text-error">password not blank</span>
+          )}
+        </div>
+        <div className="mb-1">
+          <label className="form-label">Confirm Password</label>
+          <input
+            type="password"
+            className="form-control"
+            value={signupData.c_password}
+            onChange={handleChange("c_password")}
+          />
+          {passwordError && (
+            <span className="text-error">
+              password and confirm password not match
+            </span>
+          )}
+          {error && !signupData.c_password && (
+            <span className="text-error">Confirm Password not blank</span>
+          )}
+        </div>
+        <div className="mb-1">
+          <label className="form-label">Enter Restaurant Name</label>
+          <input
+            type="text"
+            className="form-control"
+            value={signupData.res_name}
+            onChange={handleChange("res_name")}
+          />
+          {error && !signupData.res_name && (
+            <span className="text-error">Restaurant Name not blank</span>
+          )}
+        </div>
+        <div className="mb-1">
+          <label className="form-label">City</label>
+          <input
+            type="text"
+            className="form-control"
+            value={signupData.city}
+            onChange={handleChange("city")}
+          />
+          {error && !signupData.city && (
+            <span className="text-error">City not blank</span>
+          )}
+        </div>
+        <div className="mb-1">
+          <label className="form-label">Full Address</label>
+          <input
+            type="text"
+            className="form-control"
+            value={signupData.full_address}
+            onChange={handleChange("full_address")}
+          />
+          {error && !signupData.full_address && (
+            <span className="text-error">Full Address not blank</span>
+          )}
+        </div>
+        <div className="mb-1">
+          <label className="form-label">Contact Number</label>
+          <input
+            type="text"
+            className="form-control"
+            value={signupData.number}
+            onChange={handleChange("number")}
+          />
+          {error && !signupData.number && (
+            <span className="text-error">number not valid blank</span>
+          )}
+        </div>
+        <button
+          type="submit"
+          onClick={handleSubmit}
+          className="btn btn-primary"
+        >
+          Sign up
+        </button>
       </div>
     </>
   );
