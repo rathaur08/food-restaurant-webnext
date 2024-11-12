@@ -1,12 +1,13 @@
-import RestaurantHeader from "./_components/RestaurantHeader";
+import CustomerHeader from "./_components/CustomerHeader";
+import RestaurantFooter from "./_components/RestaurantFooter";
 
 const page = () => {
   return (
     <>
       <div>
-        <RestaurantHeader />
-        {/* <p>Food Restaurant Website</p> */}
+        <CustomerHeader />
         <p>JetSetGo Restaurant Website</p>
+        <RestaurantFooter />
       </div>
     </>
   );

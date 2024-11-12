@@ -30,8 +30,8 @@ const RestaurantHeader = () => {
       <div>
         <nav className="navbar navbar-expand-lg bg-light">
           <div className="container">
-            <Link className="navbar-brand" href="/">
-              JetSetGO
+            <Link className="navbar-brand" href="#">
+              JetSetGo Restaurant
             </Link>
             <button
               className="navbar-toggler"
@@ -45,40 +45,18 @@ const RestaurantHeader = () => {
               <span className="navbar-toggler-icon"></span>
             </button>
             <div
-              className="collapse navbar-collapse"
-              id="navbarSupportedContent"
-            >
+              className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" >
               <ul className="navbar-nav justify-content-end">
                 <li className="nav-item">
-                  <Link
-                    className="nav-link active"
-                    aria-current="page"
-                    href="/"
-                  >
-                    Home
-                  </Link>
+                  <Link className="nav-link active" aria-current="page" href="/">Home </Link>
                 </li>
 
                 {details && details.res_name ? (
                   <li className="nav-item d-flex">
-                    <Link
-                      className="nav-link"
-                      href="/restaurant"
-                      onClick={logOut}
-                    >
-                      Logout
-                    </Link>
-                    <Link className="nav-link" href="">
-                      🙍🤵{details.res_name}
-                    </Link>
+                    <Link className="nav-link" href="/restaurant" onClick={logOut}>LogOut</Link>
+                    <Link className="nav-link" href="#">🙍🤵{details.res_name}</Link>
                   </li>
-                ) : (
-                  <li className="nav-item">
-                    <Link className="nav-link" href="/restaurant">
-                      Login/Sinup
-                    </Link>
-                  </li>
-                )}
+                ) : ""}
               </ul>
             </div>
           </div>
