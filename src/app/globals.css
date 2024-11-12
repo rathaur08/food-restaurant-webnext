@@ -1,3 +1,7 @@
+*:focus {
+  box-shadow: none !important;
+}
+
 .footer-wraper {
   /* position: fixed; */
   bottom: 0;
@@ -9,5 +13,33 @@
 
 .text-error {
   color: red;
-  font-size: 10px;
+  font-size: 14px;
+}
+
+.main-banner {
+  background-image: url(https://d3tfanr7troppj.cloudfront.net/static_files/images/000/005/692/original/Contact_us.webp?1707116931);
+  background-repeat: no-repeat;
+  background-color: rgb(0, 0, 0, 0.1);
+  background-blend-mode: multiply;
+  padding: 20px;
+  height: 200px;
+  text-align: center;
+}
+
+.search-wraper {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  margin: auto;
+}
+
+.input-group .search-select {
+  border: none;
+  width: 30%;
+}
+
+.input-group .search-input {
+  border: none;
+  width: 60%;
+  border-left: 1px solid #cecccc;
 }
