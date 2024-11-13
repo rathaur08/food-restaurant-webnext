@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 const FoodItemList = () => {
   const router = useRouter();
   const [foodItems, setFoodItems] = useState();
-  console.log(foodItems);
+  // console.log(foodItems);
 
   useEffect(() => {
     loadFoodItems();
@@ -46,9 +46,9 @@ const FoodItemList = () => {
     <>
       <div>
         <h1>Food Item List</h1>
-        <div class="table-responsive">
-          <table class="table table-bordered">
-            <thead class="table-dark">
+        <div className="table-responsive">
+          <table className="table table-bordered">
+            <thead className="table-dark">
               <tr>
                 <th scope="col">S.N</th>
                 <th scope="col">Name</th>

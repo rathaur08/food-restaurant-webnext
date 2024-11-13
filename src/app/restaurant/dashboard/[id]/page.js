@@ -29,7 +29,7 @@ const EditFoodItem = (props) => {
     let response = await fetch(`http://localhost:3001/api/restaurant/foods/edit/${props.params.id}`)
     response = await response.json();
     if (response.success) {
-      console.log(response);
+      // console.log(response);
       setAddItem(response.result)
     } else {
       alert("food item not loading")
@@ -45,7 +45,7 @@ const EditFoodItem = (props) => {
     }
 
     let resAddFoodItem = addItem;
-    console.log("Updated Food Item Data :", resAddFoodItem)
+    // console.log("Updated Food Item Data :", resAddFoodItem)
     try {
       const resresult = await fetch(`http://localhost:3001/api/restaurant/foods/edit/${props.params.id}`, {
         method: "PUT",
