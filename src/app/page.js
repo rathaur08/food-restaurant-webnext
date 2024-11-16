@@ -10,10 +10,10 @@ const page = () => {
   const [selectLocations, selSelectLocations] = useState("");
 
   // console.log(locations);
-
+  let item;
   useEffect(() => {
     getLoadLocations();
-    getRestaurants();
+    getRestaurants({ location: item });
   }, [])
 
   const getLoadLocations = async () => {
@@ -26,8 +26,15 @@ const page = () => {
     }
   }
 
-  const getRestaurants = async () => {
-    let response = await fetch(`http://localhost:3001/api/customer`)
+
+  const getRestaurants = async (params) => {
+    let url = "http://localhost:3001/api/customer";
+    if (params?.location) {
+      url += "?location=" + params.location;
+    } else if (params?.restaurant) {
+      // url += "?restaurant=" + params.restaurant;
+    }
+    let response = await fetch(url)
     response = await response.json();
     if (response.success) {
       setRestaurants(response.result)
@@ -36,9 +43,10 @@ const page = () => {
     }
   }
 
-  // const handelListItem = (item) => {
-  //   // selSelectLocations(item);
-  // }
+  const handelListItem = (item) => {
+    getRestaurants({ location: item });
+  }
+
   return (
     <>
       <div>
