@@ -2,8 +2,10 @@
 import { useEffect, useState } from "react";
 import CustomerHeader from "./_components/CustomerHeader";
 import RestaurantFooter from "./_components/RestaurantFooter";
+import { useRouter } from "next/navigation";
 
 const page = () => {
+  const router = useRouter();
 
   const [locations, setLocations] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
@@ -72,7 +74,7 @@ const page = () => {
         <div className="d-flex flex-wrap justify-content-between gap-3 mt-4 mb-4">
           {
             restaurants && restaurants.map((item, index) => (
-              <div className="card restaurant-card" key={index}>
+              <div className="card restaurant-card" onClick={() => router.push('/restaurant-detail/' + item.res_name)} key={index}>
                 <div className="card-body">
                   <h5 className="card-title">{item.res_name}</h5>
                   <h6 className="card-subtitle mb-2 text-body-secondary">City : {item.city}</h6>
