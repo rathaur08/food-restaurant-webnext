@@ -8,7 +8,7 @@ export async function GET(request) {
   // Get Fatch Req Data URL function
   const url = new URL(request.url); // Create a URL instance
   const queryParams = url.searchParams; // Access searchParams
-  console.log(queryParams.get("location"));
+  // console.log(queryParams.get("location"));
   // console.log(queryParams.get("restaurant"));
 
   let filter = {};

@@ -9,7 +9,6 @@ const page = () => {
 
   const [locations, setLocations] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
-  const [selectLocations, selSelectLocations] = useState("");
 
   // console.log(locations);
   let item;
@@ -46,6 +45,7 @@ const page = () => {
   }
 
   const handelListItem = (item) => {
+    console.log(item);
     getRestaurants({ location: item });
   }
 
@@ -57,12 +57,11 @@ const page = () => {
           <h2 className="text-white">JetSetGo Food Delivery App</h2>
           <div className="search-wraper d-flex justify-content-center">
             <div className="input-group">
-              <input type="text" className="form-control search-select" list="datalistOptions" placeholder="Select Place" />
+              <input type="text" className="form-control search-select" onClick={() => handelListItem(item)} list="datalistOptions" placeholder="Select Place" />
               <datalist id="datalistOptions">
                 {
                   locations?.map((item, index) => (
                     <option key={index} >{item}</option>
-                    // <option key={index} onClick={() => handelListItem(item)} value={selectLocations}>{item}</option>
                   ))
                 }
               </datalist>
@@ -74,7 +73,7 @@ const page = () => {
         <div className="d-flex flex-wrap justify-content-between gap-3 mt-4 mb-4">
           {
             restaurants && restaurants.map((item, index) => (
-              <div className="card restaurant-card" onClick={() => router.push('/restaurant-detail/' + item.res_name)} key={index}>
+              <div className="card restaurant-card" onClick={() => router.push('/restaurant-detail/' + item.res_name + "?id=" + item._id)} key={index}>
                 <div className="card-body">
                   <h5 className="card-title">{item.res_name}</h5>
                   <h6 className="card-subtitle mb-2 text-body-secondary">City : {item.city}</h6>
