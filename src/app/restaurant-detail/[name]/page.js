@@ -48,8 +48,9 @@ const RestaurantDetail = (props) => {
                   <img src={item.item_image} className="card-img-top" alt={item.item_name} />
                   <div className="card-body">
                     <h5 className="card-title">{item.item_name}</h5>
+                    <p className="card-text">₹ {item.item_price}</p>
                     <p className="card-text">{item.item_description}</p>
-                    <p className="card-text">₹ {item.item_price} /- <button className="btn btn-primary">Add to Cart</button></p>
+                    <button className="btn btn-primary">Add to Cart</button>
                   </div>
                 </div>
               ))
