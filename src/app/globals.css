@@ -50,3 +50,12 @@ border-radius: 8px;
 background: #c8770de0;
 box-shadow: 0 0 10px 0 rgba(0, 0, 0, .12);
 }
+
+.card-body-restaurant{
+  background: #c8770de0;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, .12);
+  padding: 15px 10px;
+}
+.card-body-restaurant h3{
+  font-size: 20px;
+}

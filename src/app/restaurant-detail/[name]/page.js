@@ -34,29 +34,26 @@ const RestaurantDetail = (props) => {
         <div className="main-banner">
           <h2 className="text-white">{decodeURI(name)} Restaurant Detail Page </h2>
         </div>
-        <div className="mt-3">
-          <h2> Restaurant Detail -: </h2>
-          <hr className="" />
-          <h3>Name  : {restaurantData?.res_name}</h3>
+        <div className="card-body-restaurant d-flex justify-content-between flex-wrap">
+          <h3>Address  : {restaurantData?.full_address}</h3>
           <h3>City : {restaurantData?.city}</h3>
+          <h3>Mobile : {restaurantData?.number}</h3>
           <h3>Email : {restaurantData?.email}</h3>
-          <h3>Number : {restaurantData?.number}</h3>
-          <hr />
         </div>
         <div className="mt-3 mb-4">
           <div className="d-flex justify-content-between flex-wrap gap-3">
             {
-              restaurantFoodItemsData && restaurantFoodItemsData.map((item, index) => (
+              restaurantFoodItemsData.length > 0 ? restaurantFoodItemsData.map((item, index) => (
                 <div className="card" style={{ width: '18rem' }} key={index}>
                   <img src={item.item_image} className="card-img-top" alt={item.item_name} />
                   <div className="card-body">
                     <h5 className="card-title">{item.item_name}</h5>
                     <p className="card-text">{item.item_description}</p>
-                    <p className="card-text">₹ {item.item_price} /-</p>
-                    {/* <a href="#" className="btn btn-primary">Detail</a> */}
+                    <p className="card-text">₹ {item.item_price} /- <button className="btn btn-primary">Add to Cart</button></p>
                   </div>
                 </div>
               ))
+                : <h1>No Food Item added for now</h1>
             }
           </div>
         </div>
