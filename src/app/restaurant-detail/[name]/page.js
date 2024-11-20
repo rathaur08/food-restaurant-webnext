@@ -7,6 +7,7 @@ const RestaurantDetail = (props) => {
 
   const [restaurantData, setRestaurantData] = useState();
   const [restaurantFoodItemsData, setRestaurantFoodItemsData] = useState([]);
+  const [cartData, setCartData] = useState();
   // console.log("restaurantFoodItemsData", restaurantFoodItemsData)
   // console.log("restaurantData", restaurantData)
 
@@ -26,12 +27,16 @@ const RestaurantDetail = (props) => {
     }
   }
 
+  const addTOCart = (item) => {
+    setCartData(item);
+  }
+
   return (
     <>
       {/* <h1>restaurant-detail</h1>  */}
       <div>
-        <CustomerHeader />
-        <div className="main-banner">
+        <CustomerHeader cartData={cartData}/>
+        <div className="main-banner d-flex justify-content-center align-items-center">
           <h2 className="text-white">{decodeURI(name)} Restaurant Detail Page </h2>
         </div>
         <div className="card-body-restaurant d-flex justify-content-between flex-wrap">
@@ -50,7 +55,7 @@ const RestaurantDetail = (props) => {
                     <h5 className="card-title">{item.item_name}</h5>
                     <p className="card-text">₹ {item.item_price}</p>
                     <p className="card-text">{item.item_description}</p>
-                    <button className="btn btn-primary">Add to Cart</button>
+                    <button className="btn btn-primary" onClick={() => addTOCart(item)}>Add to Cart</button>
                   </div>
                 </div>
               ))

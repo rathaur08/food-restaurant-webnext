@@ -1,6 +1,42 @@
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-const CustomerHeader = () => {
+const CustomerHeader = (props) => {
+
+  const cartStorageData = JSON.parse(localStorage.getItem('cart'));
+  const [cartNumber, setCartNumber] = useState(cartStorageData?.length);
+  const [cartItem, setCartItem] = useState(cartStorageData);
+
+  useEffect(() => {
+    if (props.cartData) {
+      console.log(props);
+
+      if (cartNumber) {
+        if (cartItem[0].resto_id != props.cartData.resto_id) {
+          localStorage.removeItem('cart');
+          setCartNumber(1);
+          setCartItem([props.cartData]);
+          localStorage.setItem('cart', JSON.stringify([props.cartData]));
+
+        } else {
+          let localCartItem = cartItem;
+          localCartItem.push(JSON.parse(JSON.stringify(props.cartData)))
+          setCartItem(localCartItem);
+          setCartNumber(cartNumber + 1);
+          localStorage.setItem('cart', JSON.stringify(localCartItem))
+
+        }
+
+      } else {
+        setCartNumber(1);
+        setCartItem([props.cartData]);
+        localStorage.setItem('cart', JSON.stringify([props.cartData]));
+      }
+
+    }
+
+  }, [props.cartData])
+
   return (
     <>
       <div>
@@ -35,7 +71,7 @@ const CustomerHeader = () => {
                   <Link className="nav-link" href="/signup">Signup</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/cart-items">Cart Item{0}</Link>
+                  <Link className="nav-link" href="/cart-items">Cart Item({cartNumber ? cartNumber : '0'})</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" href="/restaurant">Add restaurant</Link>
