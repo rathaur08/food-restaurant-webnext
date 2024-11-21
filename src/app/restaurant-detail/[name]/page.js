@@ -8,6 +8,14 @@ const RestaurantDetail = (props) => {
   const [restaurantData, setRestaurantData] = useState();
   const [restaurantFoodItemsData, setRestaurantFoodItemsData] = useState([]);
   const [cartData, setCartData] = useState();
+
+  const [cartStorage, setCartStorage] = useState(JSON.parse(localStorage.getItem('cart')));
+  const [cartId, setCartId] = useState(cartStorage ? () => cartStorage.map((item) => {
+    return item._id
+  }) : []);
+  // console.log("cartId", cartId);
+  const [removeCardData, setRemoveCardData] = useState();
+
   // console.log("restaurantFoodItemsData", restaurantFoodItemsData)
   // console.log("restaurantData", restaurantData)
 
@@ -28,14 +36,25 @@ const RestaurantDetail = (props) => {
   }
 
   const addTOCart = (item) => {
+    let localCartIds = cartId;
+    localCartIds.push(item._id)
+    setCartId(localCartIds);
     setCartData(item);
+    setRemoveCardData();
+  }
+
+  const removeTOCart = (id) => {
+    setRemoveCardData(id);
+    let localIds = cartId.filter(item => item != id)
+    setCartData();
+    setCartId(localIds);
   }
 
   return (
     <>
       {/* <h1>restaurant-detail</h1>  */}
       <div>
-        <CustomerHeader cartData={cartData}/>
+        <CustomerHeader cartData={cartData} removeCardData={removeCardData} />
         <div className="main-banner d-flex justify-content-center align-items-center">
           <h2 className="text-white">{decodeURI(name)} Restaurant Detail Page </h2>
         </div>
@@ -55,7 +74,10 @@ const RestaurantDetail = (props) => {
                     <h5 className="card-title">{item.item_name}</h5>
                     <p className="card-text">₹ {item.item_price}</p>
                     <p className="card-text">{item.item_description}</p>
-                    <button className="btn btn-primary" onClick={() => addTOCart(item)}>Add to Cart</button>
+                    {
+                      cartId.includes(item._id) ? <button className="btn btn-primary" onClick={() => removeTOCart(item._id)}>Remove Cart</button>
+                        : <button className="btn btn-primary" onClick={() => addTOCart(item)}>Add to Cart</button>
+                    }
                   </div>
                 </div>
               ))

@@ -37,6 +37,22 @@ const CustomerHeader = (props) => {
 
   }, [props.cartData])
 
+  useEffect(() => {
+    if (props.removeCardData) {
+      let localCartItem = cartItem.filter((item) => {
+        return item._id != props.removeCardData
+      });
+
+      setCartItem(localCartItem);
+      setCartNumber(cartNumber - 1);
+      localStorage.setItem('cart', JSON.stringify(localCartItem))
+      if (localCartItem.length == 0) {
+        localStorage.removeItem('cart')
+      }
+
+    }
+  }, [props.removeCardData]);
+
   return (
     <>
       <div>
