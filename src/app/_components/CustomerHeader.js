@@ -87,7 +87,7 @@ const CustomerHeader = (props) => {
                   <Link className="nav-link" href="/signup">Signup</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/cart-items">Cart Item({cartNumber ? cartNumber : '0'})</Link>
+                  <Link className="nav-link" href={cartNumber ? "/cart-items" : "#"} >Cart Item({cartNumber ? cartNumber : '0'})</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" href="/restaurant">Add restaurant</Link>
