@@ -6,9 +6,17 @@ import { DELIVERY_CHARGES, TAX } from "../lib/itemsPricing";
 
 const CartItem = () => {
   const [cartStorage, setCartStorage] = useState(JSON.parse(localStorage.getItem('cart')));
-  const [total, setTotal] = useState(() => cartStorage.length == 1 ? cartStorage[0].item_price : cartStorage.reduce((a, b) => {
-    return a.item_price + b.item_price
-  }))
+  // const [total, setTotal] = useState(() => cartStorage.length == 1 ? cartStorage[0].item_price : cartStorage.reduce((a, b) => {
+  //   return a + b.item_price, 0
+  // }))
+
+  const [total, setTotal] = useState(() => {
+    if (cartStorage.length === 1) {
+      return cartStorage[0].item_price; // Single item in the cart
+    }
+    return cartStorage.reduce((a, b) => a + b.item_price, 0); // Provide initial value (0)
+  });
+
 
   return (
     <>
