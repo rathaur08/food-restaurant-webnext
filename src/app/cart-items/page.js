@@ -3,8 +3,10 @@ import { useState } from "react";
 import CustomerHeader from "../_components/CustomerHeader"
 import RestaurantFooter from "../_components/RestaurantFooter";
 import { DELIVERY_CHARGES, TAX } from "../lib/itemsPricing";
+import { useRouter } from "next/navigation";
 
 const CartItem = () => {
+  const Routs = useRouter();
   const [cartStorage, setCartStorage] = useState(JSON.parse(localStorage.getItem('cart')));
   // const [total, setTotal] = useState(() => cartStorage.length == 1 ? cartStorage[0].item_price : cartStorage.reduce((a, b) => {
   //   return a + b.item_price, 0
@@ -17,6 +19,9 @@ const CartItem = () => {
     return cartStorage.reduce((a, b) => a + b.item_price, 0); // Provide initial value (0)
   });
 
+  const orderNow = () => {
+    Routs.push("/order")
+  }
 
   return (
     <>
@@ -63,7 +68,7 @@ const CartItem = () => {
             <span> ₹ {total + DELIVERY_CHARGES + (total * TAX / 100)}</span>
           </div>
           <div>
-            <button className="btn btn-primary mt-2">Order Now</button>
+            <button className="btn btn-primary mt-2" onClick={orderNow}>Order Now</button>
           </div>
         </div>
       </div>
