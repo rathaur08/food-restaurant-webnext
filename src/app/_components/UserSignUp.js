@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const UserSignUp = () => {
+  const Routs = useRouter();
+
   // User Signup Form Data
   const [userSignUP, setUserSignUP] = useState({
     user_fullname: "",
@@ -23,7 +26,6 @@ const UserSignUp = () => {
 
   // const handleSubmit = async () => {
   const handleSignUp = async () => {
-    console.log("UserSignup DataObj", userSignUP);
 
     // Check if passwords match
     if (userSignUP.user_password !== userSignUP.user_cpassword) {
@@ -63,6 +65,10 @@ const UserSignUp = () => {
       // Handle success or failure based on the response
       if (response.success) {
         alert("User Signup Successful!");
+        const { result } = response;
+        ['user_password', 'user_gen_date'].forEach(prop => delete result[prop]);
+        localStorage.setItem("user", JSON.stringify(result));
+        Routs.push("/")
       } else {
         console.error("User Signup failed: ", response.message); // Handle failure
         alert("Signup failed. Please try again.");
