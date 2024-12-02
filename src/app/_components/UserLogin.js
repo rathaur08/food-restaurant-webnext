@@ -33,7 +33,7 @@ const UserLogin = () => {
 
     // Attempt to send the data to the server
     try {
-      const resresult = await fetch("http://localhost:3001/api/user", {
+      const resresult = await fetch("http://localhost:3001/api/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
