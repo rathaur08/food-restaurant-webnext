@@ -27,7 +27,6 @@ const page = () => {
     }
   }
 
-
   const getRestaurants = async (params) => {
     let url = "http://localhost:3001/api/customer";
     if (params?.location) {

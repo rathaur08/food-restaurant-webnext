@@ -25,12 +25,12 @@ const CartItem = () => {
         {
           cartStorage.length > 0 ? cartStorage.map((item, index) => (
             <div className="" key={index}>
-              <div class="card border-0 mb-3" style={{ maxWidth: '540px' }} >
-                <div class="row g-0">
-                  <div class="col-md-4">
+              <div className="card border-0 mb-3" style={{ maxWidth: '540px' }} >
+                <div className="row g-0">
+                  <div className="col-md-4">
                     <img src={item.item_image} className="img-fluid rounded-start" alt={item.item_name} />
                   </div>
-                  <div class="col-md-8">
+                  <div className="col-md-8">
                     <div className="card-body">
                       <h5 className="card-title">{item.item_name}</h5>
                       <p className="card-text text-end fw-bold m-0">Price:  ₹{item.item_price}</p>
