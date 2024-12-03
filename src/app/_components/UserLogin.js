@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const UserLogin = () => {
+const UserLogin = (props) => {
   const Routs = useRouter();
 
   // User Signup Form Data
@@ -49,7 +49,11 @@ const UserLogin = () => {
         const { result } = response;
         ['user_password', 'user_gen_date'].forEach(prop => delete result[prop]);
         localStorage.setItem("user", JSON.stringify(result));
-        Routs.push("/")
+        if (props?.redirect?.order) {
+          Routs.push("/order")
+        } else {
+          Routs.push("/")
+        }
       } else {
         console.error("User Login failed: ", response.message); // Handle failure
         alert("Login failed. Please try again.");

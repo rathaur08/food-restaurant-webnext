@@ -5,8 +5,9 @@ import RestaurantFooter from "../_components/RestaurantFooter";
 import UserLogin from "../_components/UserLogin";
 import UserSignUp from "../_components/UserSignUp";
 
-const UserAuth = () => {
+const UserAuth = (props) => {
   const [login, setLogin] = useState(true);
+  console.log("Order Flag", props);
 
   return (
     <>
@@ -14,7 +15,7 @@ const UserAuth = () => {
       <div>
         <h1>{login ? "User Login" : "User Signup"}</h1>
         {
-          login ? <UserLogin /> : <UserSignUp />
+          login ? <UserLogin redirect={props.searchParams} /> : <UserSignUp redirect={props.searchParams} />
         }
         {
           login ? <>

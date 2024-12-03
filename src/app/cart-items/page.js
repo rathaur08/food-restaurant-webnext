@@ -20,7 +20,11 @@ const CartItem = () => {
   });
 
   const orderNow = () => {
-    Routs.push("/order")
+    if (JSON.parse(localStorage.getItem('user'))) {
+      Routs.push("/order");
+    } else {
+      Routs.push("/user-auth?order=true");
+    }
   }
 
   return (

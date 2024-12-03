@@ -25,15 +25,15 @@ const Order = () => {
           <h2>User Details</h2>
           <div>
             <span>Name : </span>
-            <span className="fw-bold">{user.user_fullname}</span>
+            <span className="fw-bold">{user?.user_fullname}</span>
           </div>
           <div>
             <span>Address : </span>
-            <span className="fw-bold">{user.user_full_address}</span>
+            <span className="fw-bold">{user?.user_full_address}</span>
           </div>
           <div>
             <span>Mobile : </span>
-            <span className="fw-bold">{user.user_number}</span>
+            <span className="fw-bold">{user?.user_number}</span>
           </div>
         </div>
         <hr />
