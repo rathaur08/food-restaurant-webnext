@@ -37,7 +37,7 @@ const Order = () => {
           </div>
         </div>
         <hr />
-        {/* <h2>Amount Details</h2> */}
+        <h3>Amount Details</h3>
         <div className="text-end">
 
           <div>
@@ -56,9 +56,10 @@ const Order = () => {
             <span>Total Amounts  : </span>
             <span> ₹ {total + DELIVERY_CHARGES + (total * TAX / 100)}</span>
           </div>
+          <h3 className="text-start">Payment Method</h3>
           <div>
-            <span className="fw-bold">Payment Method  : </span>
-            <span> HOME</span>
+            <span className="fw-bold">Cash on delivery : </span>
+            <span> ₹ {total + DELIVERY_CHARGES + (total * TAX / 100)} </span>
           </div>
           <div>
             <button className="btn btn-primary mt-2">Place your Order now</button>
