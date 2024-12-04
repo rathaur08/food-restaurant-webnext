@@ -38,10 +38,12 @@ const MyProfile = () => {
                 <div className="card restaurant-card" key={index}>
                   <div className="card-body">
                     <h5 className="card-title">{item.data.res_name}</h5>
-                    <h6 className="card-subtitle mb-2 text-body-secondary">City : </h6>
-                    <p className="card-text m-0">Email : </p>
-                    <p className="card-text m-0">Number : </p>
-                    <h6 className="card-subtitle mb-2 text-body-secondary">Full Address : </h6>
+                    <h6 className="card-subtitle mb-2 text-body-secondary">City : {item.data.city}</h6>
+                    <p className="card-text m-0">Email : {item.data.email}</p>
+                    <p className="card-text m-0">Number : {item.data.number}</p>
+                    <p className="card-text m-0">Amount : {item.order_total_amount}</p>
+                    <p className="card-text m-0">Status : {item.order_status}</p>
+                    <h6 className="card-subtitle mb-2 text-body-secondary">Full Address : {item.data.full_address}</h6>
                   </div >
                 </div >
               ))
