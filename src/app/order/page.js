@@ -17,6 +17,59 @@ const Order = () => {
     return cartStorage.reduce((a, b) => a + b.item_price, 0); // Provide initial value (0)
   });
 
+  // const [order, setOrder] = useState({
+  //   order_user_id: user._id,
+  //   order_food_items_id: "",
+  //   order_resto_id: "",
+  //   order_delivery_boy_id: "674edf1c64df4b5e31a8a843",
+  //   order_status: "",
+  //   order_total_amount: total + DELIVERY_CHARGES + (total * TAX / 100),
+  // })
+  // console.log(order);
+
+  const orderNow = async () => {
+    let order_user_id = JSON.parse(localStorage.getItem('user'))._id;
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    let order_food_items_id = cart.map((item) => item._id).toString();
+    let order_resto_id = cart[0].resto_id;
+    let order_delivery_boy_id = "674edf1c64df4b5e31a8a808";
+    let order_status = "confirm";
+    let order_total_amount = total + DELIVERY_CHARGES + (total * TAX / 100)
+
+    let collection = {
+      order_user_id,
+      order_food_items_id,
+      order_resto_id,
+      order_delivery_boy_id,
+      order_status,
+      order_total_amount
+    }
+    console.log(collection)
+
+    // Attempt to send the data to the server
+    try {
+      const resresult = await fetch("http://localhost:3001/api/order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(collection),
+      });
+      const response = await resresult.json();
+
+      // Handle success or failure based on the response
+      if (response.success) {
+        alert("User Order Successful!");
+      } else {
+        console.error("User Order failed: ", response.message); // Handle failure
+        alert("Order failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting User Order data:", error); // Handle error
+      alert("There was an error with the Order process. Please try again later.");
+    }
+  };
+
   return (
     <>
       <CustomerHeader />
@@ -62,7 +115,7 @@ const Order = () => {
             <span> ₹ {total + DELIVERY_CHARGES + (total * TAX / 100)} </span>
           </div>
           <div>
-            <button className="btn btn-primary mt-2">Place your Order now</button>
+            <button className="btn btn-primary mt-2" onClick={orderNow}>Place your Order now</button>
           </div>
         </div>
       </div>
