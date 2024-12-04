@@ -51,6 +51,13 @@ const CustomerHeader = (props) => {
     }
   }, [props.removeCardData]);
 
+  useEffect(() => {
+    if (props.removeCartData) {
+      setCartItem([]);
+      localStorage.removeItem("cart");
+    }
+
+  }, [props.removeCartData]);
 
   const userLogOut = () => {
     localStorage.removeItem("user");
@@ -88,7 +95,7 @@ const CustomerHeader = (props) => {
                   user ?
                     <>
                       <li className="nav-item">
-                        <Link className="nav-link" href="#">{user.user_fullname}</Link>
+                        <Link className="nav-link" href="/my-profile">{user.user_fullname}</Link>
                       </li>
                       <li className="nav-item">
                         <button className="nav-link btn btn-link" href="/" onClick={userLogOut}>Logout</button>

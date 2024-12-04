@@ -1,10 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomerHeader from "../_components/CustomerHeader"
 import RestaurantFooter from "../_components/RestaurantFooter";
 import { DELIVERY_CHARGES, TAX } from "../lib/itemsPricing";
+import { useRouter } from "next/navigation";
 
 const Order = () => {
+  const Routs = useRouter();
 
   const userStorageData = JSON.parse(localStorage.getItem('user'));
   const [user, setUser] = useState(userStorageData ? userStorageData : undefined);
@@ -17,6 +19,12 @@ const Order = () => {
     return cartStorage.reduce((a, b) => a + b.item_price, 0); // Provide initial value (0)
   });
 
+  useEffect(() => {
+    if (!cartStorage) {
+      Routs.push("/")
+    }
+  }, [total])
+
   const [orderData, setOrderData] = useState({
     order_user_id: user._id,
     order_food_items_id: cartStorage.map((item) => item._id).toString(),
@@ -25,7 +33,8 @@ const Order = () => {
     order_status: "confirm",
     order_total_amount: total + DELIVERY_CHARGES + (total * TAX / 100),
   })
-  console.log(orderData);
+  // console.log(orderData);
+  const [removeCartData, setRemoveCartData] = useState(false);
 
   const orderNow = async () => {
 
@@ -42,7 +51,9 @@ const Order = () => {
 
       // Handle success or failure based on the response
       if (response.success) {
-        alert("User Order Successful!");
+        alert("Order Successful!");
+        setRemoveCartData(true);
+        Routs.push("my-profile");
       } else {
         console.error("User Order failed: ", response.message); // Handle failure
         alert("Order failed. Please try again.");
@@ -55,7 +66,7 @@ const Order = () => {
 
   return (
     <>
-      <CustomerHeader />
+      <CustomerHeader removeCartData={removeCartData} />
       <div className="mt-5">
         <div className="">
           <h2>User Details</h2>
