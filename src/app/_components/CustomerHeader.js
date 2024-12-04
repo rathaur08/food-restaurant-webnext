@@ -103,11 +103,11 @@ const CustomerHeader = (props) => {
                     </>
                     :
                     <>
-                      <li className="nav-item">
+                      {/* <li className="nav-item">
                         <Link className="nav-link" href="/login">Login</Link>
-                      </li>
+                      </li> */}
                       <li className="nav-item">
-                        <Link className="nav-link" href="/user-auth">Signup</Link>
+                        <Link className="nav-link" href="/user-auth">Login/Signup</Link>
                       </li>
                     </>
                 }
