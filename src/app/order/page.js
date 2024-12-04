@@ -17,34 +17,17 @@ const Order = () => {
     return cartStorage.reduce((a, b) => a + b.item_price, 0); // Provide initial value (0)
   });
 
-  // const [order, setOrder] = useState({
-  //   order_user_id: user._id,
-  //   order_food_items_id: "",
-  //   order_resto_id: "",
-  //   order_delivery_boy_id: "674edf1c64df4b5e31a8a843",
-  //   order_status: "",
-  //   order_total_amount: total + DELIVERY_CHARGES + (total * TAX / 100),
-  // })
-  // console.log(order);
+  const [orderData, setOrderData] = useState({
+    order_user_id: user._id,
+    order_food_items_id: cartStorage.map((item) => item._id).toString(),
+    order_resto_id: cartStorage[0].resto_id,
+    order_delivery_boy_id: "674edf1c64df4b5e31a8a808",
+    order_status: "confirm",
+    order_total_amount: total + DELIVERY_CHARGES + (total * TAX / 100),
+  })
+  console.log(orderData);
 
   const orderNow = async () => {
-    let order_user_id = JSON.parse(localStorage.getItem('user'))._id;
-    let cart = JSON.parse(localStorage.getItem('cart'));
-    let order_food_items_id = cart.map((item) => item._id).toString();
-    let order_resto_id = cart[0].resto_id;
-    let order_delivery_boy_id = "674edf1c64df4b5e31a8a808";
-    let order_status = "confirm";
-    let order_total_amount = total + DELIVERY_CHARGES + (total * TAX / 100)
-
-    let collection = {
-      order_user_id,
-      order_food_items_id,
-      order_resto_id,
-      order_delivery_boy_id,
-      order_status,
-      order_total_amount
-    }
-    console.log(collection)
 
     // Attempt to send the data to the server
     try {
@@ -53,7 +36,7 @@ const Order = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(collection),
+        body: JSON.stringify(orderData),
       });
       const response = await resresult.json();
 
