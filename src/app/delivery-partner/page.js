@@ -12,43 +12,133 @@ const page = () => {
   });
   const [error, setError] = useState(false);
 
-  // console.log("deliveryLogin DataObj", deliveryLogin);
+  console.log("deliveryLogin DataObj", deliveryLogin);
 
   // ---------- User Signup Data Handle Input
-  const handleChange = (input) => (e) => {
+  const handleChangeLogin = (input) => (e) => {
     setDeliveryLogin({ ...deliveryLogin, [input]: e.target.value });
   };
 
   // const handleSubmit = async () => {
   const handleLogin = async () => {
-  }
+
+    // Check if all required fields are filled
+    if (
+      !userLogin.db_email || !userLogin.db_password
+    ) {
+      setError(true); // Fixed typo here
+      return false;
+    } else {
+      setError(false);
+    }
+
+    // Attempt to send the data to the server
+    try {
+      const resresult = await fetch("http://localhost:3001/api/deliverypartners/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userLogin),
+      });
+
+      const response = await resresult.json();
+
+      // Handle success or failure based on the response
+      if (response.success) {
+        alert("User Login Successful!");
+        const { result } = response;
+        ['db_password', 'db_gen_date'].forEach(prop => delete result[prop]);
+        localStorage.setItem("user", JSON.stringify(result));
+        if (props?.redirect?.order) {
+          Routs.push("/order")
+        } else {
+          Routs.push("/")
+        }
+      } else {
+        console.error("User Login failed: ", response.message); // Handle failure
+        alert("Login failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting User Login data:", error); // Handle error
+      alert("There was an error with the Login process. Please try again later.");
+    }
+  };
 
   // ------------------------------ Delivery Partner Signup -----------------------------------------------------------------
   // delivery Partner Signup Form 
   // User Signup Form Data
-  const [userSignUP, setUserSignUP] = useState({
-    user_fullname: "",
-    user_email: "",
-    user_number: "",
-    user_city: "",
-    user_full_address: "",
-    user_password: "",
-    user_cpassword: "",
+  const [deliverySignUP, setDeliverySignUP] = useState({
+    db_fullname: "",
+    db_email: "",
+    db_number: "",
+    db_city: "",
+    db_full_address: "",
+    db_password: "",
+    db_cpassword: "",
   });
   const [passwordError, setPasswordError] = useState(false);
 
-  // console.log("UserSignup DataObj", userSignUP);
+  console.log("deliverySignUP DataObj", deliverySignUP);
 
   // ---------- User Signup Data Handle Input
-  const handleChanges = (input) => (e) => {
-    setUserSignUP({ ...userSignUP, [input]: e.target.value });
+  const handleChangeSignup = (input) => (e) => {
+    setDeliverySignUP({ ...deliverySignUP, [input]: e.target.value });
   };
 
   // const handleSubmit = async () => {
   const handleSignUp = async () => {
-  }
 
+    // Check if passwords match
+    if (deliverySignUP.db_password !== deliverySignUP.db_cpassword) {
+      setPasswordError(true); // Fixed typo here
+      return false;
+    } else {
+      setPasswordError(false);
+    }
 
+    // Check if all required fields are filled
+    if (
+      !deliverySignUP.db_fullname ||
+      !deliverySignUP.db_email ||
+      !deliverySignUP.db_number ||
+      !deliverySignUP.db_city ||
+      !deliverySignUP.db_full_address ||
+      !deliverySignUP.db_password
+    ) {
+      setError(true); // Fixed typo here
+      return false;
+    } else {
+      setError(false);
+    }
+
+    // Attempt to send the data to the server
+    try {
+      const resresult = await fetch("http://localhost:3001/api/deliverypartners/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(deliverySignUP),
+      });
+
+      const response = await resresult.json();
+
+      // Handle success or failure based on the response
+      if (response.success) {
+        alert("delivery Signup Successful!");
+        const { result } = response;
+        ['db_password', 'db_gen_date'].forEach(prop => delete result[prop]);
+        localStorage.setItem("delivery", JSON.stringify(result));
+      } else {
+        console.error("delivery Signup failed: ", response.message); // Handle failure
+        alert("Signup failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting delivery signup data:", error); // Handle error
+      alert("There was an error with the signup process. Please try again later.");
+    }
+  };
 
   return (
     // delivery-partner
@@ -62,20 +152,20 @@ const page = () => {
               <div className='login border p-3'>
                 <div className="">
                   <div className="mb-1">
-                    <label className="form-label">Email</label>
-                    <input type="email" className="form-control"
-                      value={deliveryLogin.user_email}
-                      onChange={handleChange("user_email")} />
-                    {error && !deliveryLogin.user_email && (
-                      <span className="text-error">Email not blank</span>
+                    <label className="form-label">Number</label>
+                    <input type="text" className="form-control"
+                      value={deliveryLogin.db_number}
+                      onChange={handleChangeLogin("db_number")} />
+                    {error && !deliveryLogin.db_number && (
+                      <span className="text-error">Number not blank</span>
                     )}
                   </div>
                   <div className="mb-1">
                     <label className="form-label">Password</label>
                     <input type="password" className="form-control"
-                      value={deliveryLogin.user_password}
-                      onChange={handleChange("user_password")} />
-                    {error && !deliveryLogin.user_password && (
+                      value={deliveryLogin.db_password}
+                      onChange={handleChangeLogin("db_password")} />
+                    {error && !deliveryLogin.db_password && (
                       <span className="text-error">password not blank</span>
                     )}
                   </div>
@@ -92,73 +182,73 @@ const page = () => {
                   <div className="mb-1">
                     <label className="form-label">Full Name</label>
                     <input type="text" className="form-control"
-                      value={userSignUP.user_fullname}
-                      onChange={handleChange("user_fullname")} />
-                    {error && !userSignUP.user_fullname && (
+                      value={deliverySignUP.db_fullname}
+                      onChange={handleChangeSignup("db_fullname")} />
+                    {error && !deliverySignUP.db_fullname && (
                       <span className="text-error">name not blank</span>
                     )}
                   </div>
                   <div className="mb-1">
                     <label className="form-label">Email</label>
                     <input type="email" className="form-control"
-                      value={userSignUP.user_email}
-                      onChange={handleChange("user_email")} />
-                    {error && !userSignUP.user_email && (
+                      value={deliverySignUP.db_email}
+                      onChange={handleChangeSignup("db_email")} />
+                    {error && !deliverySignUP.db_email && (
                       <span className="text-error">Email not blank</span>
                     )}
                   </div>
                   <div className="mb-1">
                     <label className="form-label">Number</label>
                     <input type="text" className="form-control"
-                      value={userSignUP.user_number}
-                      onChange={handleChange("user_number")} />
-                    {error && !userSignUP.user_number && (
+                      value={deliverySignUP.db_number}
+                      onChange={handleChangeSignup("db_number")} />
+                    {error && !deliverySignUP.db_number && (
                       <span className="text-error">Number not blank</span>
                     )}
                   </div>
                   <div className="mb-1">
                     <label className="form-label">City</label>
                     <input type="text" className="form-control"
-                      value={userSignUP.user_city}
-                      onChange={handleChange("user_city")} />
-                    {error && !userSignUP.user_city && (
+                      value={deliverySignUP.db_city}
+                      onChange={handleChangeSignup("db_city")} />
+                    {error && !deliverySignUP.db_city && (
                       <span className="text-error">City not blank</span>
                     )}
                   </div>
                   <div className="mb-1">
                     <label className="form-label">Full Address</label>
                     <input type="text" className="form-control"
-                      value={userSignUP.user_full_address}
-                      onChange={handleChange("user_full_address")} />
-                    {error && !userSignUP.user_full_address && (
+                      value={deliverySignUP.db_full_address}
+                      onChange={handleChangeSignup("db_full_address")} />
+                    {error && !deliverySignUP.db_full_address && (
                       <span className="text-error">full address not blank</span>
                     )}
                   </div>
                   <div className="mb-1">
                     <label className="form-label">Password</label>
                     <input type="password" className="form-control"
-                      value={userSignUP.user_password}
-                      onChange={handleChange("user_password")} />
+                      value={deliverySignUP.db_password}
+                      onChange={handleChangeSignup("db_password")} />
                     {passwordError && (
                       <span className="text-error">
                         password and confirm password not match
                       </span>
                     )}
-                    {error && !userSignUP.user_password && (
+                    {error && !deliverySignUP.db_password && (
                       <span className="text-error">password not blank</span>
                     )}
                   </div>
                   <div className="mb-1">
                     <label className="form-label">Confirm Password</label>
                     <input type="password" className="form-control"
-                      value={userSignUP.user_cpassword}
-                      onChange={handleChange("user_cpassword")} />
+                      value={deliverySignUP.db_cpassword}
+                      onChange={handleChangeSignup("db_cpassword")} />
                     {passwordError && (
                       <span className="text-error">
                         password and confirm password not match
                       </span>
                     )}
-                    {error && !userSignUP.user_cpassword && (
+                    {error && !deliverySignUP.db_cpassword && (
                       <span className="text-error">Confirm Password not blank</span>
                     )}
                   </div>
