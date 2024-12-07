@@ -2,7 +2,7 @@ const { default: mongoose } = require("mongoose");
 
 const deliveryPartnersModal = new mongoose.Schema({
   // db => delivery_boy
-  db_name: String,
+  db_fullname: String,
   db_email: String,
   db_number: Number,
   db_city: String,

@@ -24,7 +24,7 @@ const page = () => {
 
     // Check if all required fields are filled
     if (
-      !userLogin.db_email || !userLogin.db_password
+      !deliveryLogin.db_number || !deliveryLogin.db_password
     ) {
       setError(true); // Fixed typo here
       return false;
@@ -39,33 +39,28 @@ const page = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userLogin),
+        body: JSON.stringify(deliveryLogin),
       });
 
       const response = await resresult.json();
 
       // Handle success or failure based on the response
       if (response.success) {
-        alert("User Login Successful!");
+        alert("delivery Login Successful!");
         const { result } = response;
         ['db_password', 'db_gen_date'].forEach(prop => delete result[prop]);
-        localStorage.setItem("user", JSON.stringify(result));
-        if (props?.redirect?.order) {
-          Routs.push("/order")
-        } else {
-          Routs.push("/")
-        }
+        localStorage.setItem("delivery", JSON.stringify(result));
       } else {
-        console.error("User Login failed: ", response.message); // Handle failure
+        console.error("delivery Login failed: ", response.message); // Handle failure
         alert("Login failed. Please try again.");
       }
     } catch (error) {
-      console.error("Error submitting User Login data:", error); // Handle error
+      console.error("Error submitting delivery Login data:", error); // Handle error
       alert("There was an error with the Login process. Please try again later.");
     }
   };
 
-  // ------------------------------ Delivery Partner Signup -----------------------------------------------------------------
+  // ------------------------------ Delivery Partner SignUp -----------------------------------------------------------------
   // delivery Partner Signup Form 
   // User Signup Form Data
   const [deliverySignUP, setDeliverySignUP] = useState({
