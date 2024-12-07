@@ -1,6 +1,7 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import DeliveryHeader from "../_components/DeliveryHeader";
 
 const page = () => {
   const Routs = useRouter();
@@ -50,6 +51,7 @@ const page = () => {
         const { result } = response;
         ['db_password', 'db_gen_date'].forEach(prop => delete result[prop]);
         localStorage.setItem("delivery", JSON.stringify(result));
+        Routs.push("/delivery-dashboard");
       } else {
         console.error("delivery Login failed: ", response.message); // Handle failure
         alert("Login failed. Please try again.");
@@ -125,6 +127,7 @@ const page = () => {
         const { result } = response;
         ['db_password', 'db_gen_date'].forEach(prop => delete result[prop]);
         localStorage.setItem("delivery", JSON.stringify(result));
+        Routs.push("/delivery-dashboard");
       } else {
         console.error("delivery Signup failed: ", response.message); // Handle failure
         alert("Signup failed. Please try again.");
@@ -135,9 +138,17 @@ const page = () => {
     }
   };
 
+  useEffect(() => {
+    const delivery = JSON.parse(localStorage.getItem('delivery'));
+    if (delivery) {
+      Routs.push("/delivery-dashboard");
+    }
+  }, [])
+
   return (
     // delivery-partner
     <>
+      <DeliveryHeader />
       <div className="mt-4">
         <h1 className="">Delivery Partner</h1>
         <div className='deliverypartner-container'>
