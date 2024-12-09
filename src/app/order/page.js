@@ -20,50 +20,54 @@ const Order = () => {
   });
 
 
-  const [deliveryId, setDeliveryId] = useState(null); // Add state for deliveryId
-
-  const getDeliveryBoyData = async () => {
-    const deliveryPartnersAPI = `http://localhost:3001/api/deliverypartners/${user.user_city}`;
-    try {
-      const response = await fetch(deliveryPartnersAPI);
-      const data = await response.json();
-      const deliveryIds = data.result.map((item) => item._id);
-
-      // Randomly pick a delivery ID
-      const selectedDeliveryId = deliveryIds[Math.floor(Math.random() * deliveryIds.length)];
-
-      // Update state with the selected deliveryId
-      setDeliveryId(selectedDeliveryId);
-      if (!selectedDeliveryId) {
-        alert("delivery boy not available")
-      }
-    } catch (error) {
-      console.error("Error fetching delivery boy data:", error);
-    }
-  };
-
-  useEffect(() => {
-    // Call the function when the user.city changes
-    if (user.user_city) {
-      getDeliveryBoyData();
-    }
-  }, [user.user_city]); // Dependency array ensures it's called when user.city changes
-
-  useEffect(() => {
-    if (!cartStorage) {
-      Routs.push("/")
-    }
-  }, [total])
-
+  // Initial state setup
+  const [deliveryId, setDeliveryId] = useState(null);
   const [orderData, setOrderData] = useState({
     order_user_id: user._id,
-    order_food_items_id: cartStorage.map((item) => item._id).toString(),
-    order_resto_id: cartStorage[0].resto_id,
-    order_delivery_boy_id: deliveryId,
+    order_food_items_id: cartStorage.map(item => item._id).toString(),
+    order_resto_id: cartStorage[0]?.resto_id, // Use optional chaining to avoid errors
+    order_delivery_boy_id: null, // Start as null and update later
     order_status: "confirm",
     order_total_amount: total + DELIVERY_CHARGES + (total * TAX / 100),
-  })
-  console.log("orderData", orderData);
+  });
+  // console.log("orderData", orderData);
+
+  useEffect(() => {
+    const getDeliveryBoyData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3001/api/deliverypartners/${user.user_city}`);
+        const data = await response.json();
+        const deliveryIds = data.result.map((item) => item._id);
+
+        if (deliveryIds.length) {
+          const selectedDeliveryId = deliveryIds[Math.floor(Math.random() * deliveryIds.length)];
+          setDeliveryId(selectedDeliveryId);
+          // console.log("selectedDeliveryId", selectedDeliveryId);
+        } else {
+          alert("No delivery boys available");
+        }
+      } catch (error) {
+        console.error("Error fetching delivery boy data:", error);
+      }
+    };
+
+    if (user.user_city) getDeliveryBoyData();
+  }, [user.user_city]); // Trigger when `user.user_city` changes
+
+  useEffect(() => {
+    if (deliveryId) {
+      // Update `orderData` once `deliveryId` is fetched and set
+      setOrderData(prevData => ({
+        ...prevData,
+        order_delivery_boy_id: deliveryId,
+      }));
+    }
+  }, [deliveryId]); // Trigger when `deliveryId` changes
+
+  useEffect(() => {
+    if (!cartStorage) Routs.push("/");
+  }, [total]); // Check for cartStorage changes
+
   const [removeCartData, setRemoveCartData] = useState(false);
 
   const orderNow = async () => {
