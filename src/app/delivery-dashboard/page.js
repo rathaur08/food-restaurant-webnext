@@ -8,7 +8,7 @@ const DeliveryDashboard = () => {
   const Routs = useRouter();
 
   const [myOrderData, setMyOrderData] = useState([]);
-  console.log(myOrderData);
+  // console.log(myOrderData);
 
   const getMYOrders = async () => { // 6752ef0ca964ab9f1d06a6ae
     const deliveryData = JSON.parse(localStorage.getItem('delivery'));
@@ -32,8 +32,6 @@ const DeliveryDashboard = () => {
     }
   }, []);
 
-
-
   return (
     // delivery-dashboard
     <>
@@ -55,8 +53,8 @@ const DeliveryDashboard = () => {
                     <p className="card-text m-0">Status : {item.order_status}</p>
                     <div className="d-flex align-items-center mb-2" >
                       <p className="card-text m-0 w-100">Update Status :</p>
-                      <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                        <option selected>Select Status </option>
+                      <select className="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <option value="">Select Status</option>
                         <option value="Confirm">Confirm</option>
                         <option value="On the way">On the way</option>
                         <option value="Delivered">Delivered</option>

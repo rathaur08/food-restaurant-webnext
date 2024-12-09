@@ -12,8 +12,7 @@ const page = () => {
     db_password: "",
   });
   const [error, setError] = useState(false);
-
-  console.log("deliveryLogin DataObj", deliveryLogin);
+  // console.log("deliveryLogin DataObj", deliveryLogin);
 
   // ---------- User Signup Data Handle Input
   const handleChangeLogin = (input) => (e) => {
@@ -75,8 +74,7 @@ const page = () => {
     db_cpassword: "",
   });
   const [passwordError, setPasswordError] = useState(false);
-
-  console.log("deliverySignUP DataObj", deliverySignUP);
+  // console.log("deliverySignUP DataObj", deliverySignUP);
 
   // ---------- User Signup Data Handle Input
   const handleChangeSignup = (input) => (e) => {
