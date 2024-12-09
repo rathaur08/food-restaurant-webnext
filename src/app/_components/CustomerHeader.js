@@ -6,11 +6,37 @@ import { useRouter } from "next/navigation";
 const CustomerHeader = (props) => {
   const Routs = useRouter();
 
-  const userStorageData = JSON.parse(localStorage.getItem('user'));
-  const cartStorageData = JSON.parse(localStorage.getItem('cart'));
-  const [cartNumber, setCartNumber] = useState(cartStorageData?.length);
-  const [cartItem, setCartItem] = useState(cartStorageData);
-  const [user, setUser] = useState(userStorageData ? userStorageData : undefined)
+
+  // State hooks to store the user and cart data
+  const [cartNumber, setCartNumber] = useState(0);
+  const [cartItem, setCartItem] = useState([]);
+  const [user, setUser] = useState(undefined); // Default state set to undefined
+
+  useEffect(() => {
+    // Make sure the code runs only on the client-side after the component mounts
+    if (typeof window !== 'undefined') {
+      // Safely access localStorage on the client-side
+      const userStorageData = JSON.parse(localStorage.getItem('user'));
+      const cartStorageData = JSON.parse(localStorage.getItem('cart'));
+
+      // Set the state with data from localStorage, if available
+      if (userStorageData) {
+        setUser(userStorageData);
+      }
+
+      if (cartStorageData) {
+        setCartItem(cartStorageData);
+        setCartNumber(cartStorageData.length); // Set the number of items in the cart
+      }
+    }
+  }, []); // Empty dependency array ensures this effect only runs once when the component mounts
+
+
+  // const userStorageData = JSON.parse(localStorage.getItem('user'));
+  // const cartStorageData = JSON.parse(localStorage.getItem('cart'));
+  // const [cartNumber, setCartNumber] = useState(cartStorageData?.length);
+  // const [cartItem, setCartItem] = useState(cartStorageData);
+  // const [user, setUser] = useState(userStorageData ? userStorageData : undefined)
 
   useEffect(() => {
     if (props.cartData) {
