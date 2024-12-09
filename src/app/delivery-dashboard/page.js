@@ -10,27 +10,43 @@ const DeliveryDashboard = () => {
   const [myOrderData, setMyOrderData] = useState([]);
   // console.log(myOrderData);
 
-  const getMYOrders = async () => { // 6752ef0ca964ab9f1d06a6ae
+  const getMYOrders = async () => {
     const deliveryData = JSON.parse(localStorage.getItem('delivery'));
-    let response = await fetch(`http://localhost:3001/api/deliverypartners/orders/${deliveryData._id}`)
-    response = await response.json();
-    if (response.success) {
-      setMyOrderData(response.result)
-    } else {
-      alert("Location not loading")
+
+    // Check if deliveryData is null or doesn't contain the expected _id
+    if (!deliveryData || !deliveryData._id) {
+      // alert('Delivery data is not available or invalid.');
+      Routs.push("/delivery-partner");
+      return;
     }
-  }
+
+    try {
+      let response = await fetch(`http://localhost:3001/api/deliverypartners/orders/${deliveryData._id}`);
+      response = await response.json();
+
+      if (response.success) {
+        setMyOrderData(response.result);
+      } else {
+        alert("Response not loading");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      alert("An error occurred while fetching data.");
+    }
+  };
+
 
   useEffect(() => {
     getMYOrders();
   }, []);
 
-  useEffect(() => {
-    const delivery = JSON.parse(localStorage.getItem('delivery'));
-    if (!delivery) {
-      Routs.push("/delivery-partner");
-    }
-  }, []);
+  // Check if delivery is null to GO Login Page
+  // useEffect(() => {
+  //   const delivery = JSON.parse(localStorage.getItem('delivery'));
+  //   if (!delivery) {
+  //     Routs.push("/delivery-partner");
+  //   }
+  // }, []);
 
   return (
     // delivery-dashboard
